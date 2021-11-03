@@ -20,11 +20,16 @@ export default function Employees() {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const data = await getData();
-      setEmployees(data);
-      const sortData = data.sort((next, prev) => prev.id - next.id);
-      setMaxId(sortData[0].id);
-      setIsLoading(false);
+      try {
+        const data = await getData();
+        setEmployees(data);
+        const sortData = data.sort((next, prev) => prev.id - next.id);
+        setMaxId(sortData[0].id);
+        setIsLoading(false);
+      } catch (e) {
+        setIsLoading(false);
+        console.log(e);
+      }
     })();
   }, []);
 
